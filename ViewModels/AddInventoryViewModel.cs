@@ -27,6 +27,9 @@ namespace Moonwalkers.ViewModels
         [Required(ErrorMessage = "Sell price is required.")]
         [Display(Name = "Product Sell Price")]
         public decimal? ProductSellPrice { get; set; }
+
+        [Display(Name = "Transaction ID")]
+        public int? TransactionId { get; set; }
         public string? Supplier { get; set; }
 
         public int? SupplierId { get; set; }
