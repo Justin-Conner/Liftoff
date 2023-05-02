@@ -215,6 +215,48 @@ namespace Moonwalkers.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Moonwalkers.Models.Inventory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("InventoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("InventorySupplierId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Product")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Supplier")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InventorySupplierId");
+
+                    b.ToTable("Inventory");
+                });
+
+            modelBuilder.Entity("Moonwalkers.Models.InventorySupplier", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Supplier")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -264,6 +306,18 @@ namespace Moonwalkers.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Moonwalkers.Models.Inventory", b =>
+                {
+                    b.HasOne("Moonwalkers.Models.InventorySupplier", null)
+                        .WithMany("Inventory")
+                        .HasForeignKey("InventorySupplierId");
+                });
+
+            modelBuilder.Entity("Moonwalkers.Models.InventorySupplier", b =>
+                {
+                    b.Navigation("Inventory");
                 });
 #pragma warning restore 612, 618
         }
